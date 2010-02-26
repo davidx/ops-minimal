@@ -1,0 +1,9 @@
+
+task :default => [:test]
+
+desc "Test all"
+task :test do
+  Dir[ 'test/*' ].each do |testfile|
+    sh %{ruby #{testfile}} 
+  end
+end

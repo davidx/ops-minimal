@@ -1,0 +1,10 @@
+# this is a minimalist chef-solo brew
+# created as a simple example and starting point.
+
+# most complexity has been removed, some libraries have been left for your convenience.
+# these libraries are associated with recipes which were removed.
+# feel free to ignore or remove these.
+# trying to keep this as simple as possible of a starting point.
+
+# dont expect any of the tests to pass, all though they may. can use as reference
+# recipes using those libraries and tests available upon request.

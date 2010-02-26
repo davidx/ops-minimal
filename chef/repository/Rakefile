@@ -1,0 +1,35 @@
+
+require File.join(File.dirname(__FILE__), 'config', 'rake')
+
+require 'tempfile'
+
+desc "Test your cookbooks for syntax errors"
+task :test do
+  puts "** Testing your cookbooks for syntax errors"
+  Dir[ File.join(TOPDIR, "cookbooks", "**", "*.rb") ].each do |recipe|
+    sh %{ruby -c #{recipe}} do |ok, res|
+      if ! ok
+        raise "Syntax error in #{recipe}"
+      end
+    end
+  end
+end
+
+desc "By default, run rake test"
+task :default => [ :test ] do
+
+end
+
+desc "run"
+task :runsolo do
+  sh("git pull")
+  sh("ruby config/dna.rb") 
+  sh("cd #{File.dirname(__FILE__)} && chef-solo -c config/solo.rb -j config/dna.json")
+end
+
+desc "regenerate and restart"
+task :update_regenerate_restart_nagios do
+  sh("git pull")
+  sh("chef-solo -c config/solo.rb -j config/roles/mon.json")
+  sh("/etc/init.d/nagios restart")  
+end
